@@ -4,32 +4,33 @@
 #
 Name     : perl-MLDBM
 Version  : 2.05
-Release  : 1
+Release  : 2
 URL      : https://cpan.metacpan.org/authors/id/C/CH/CHORNY/MLDBM-2.05.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/C/CH/CHORNY/MLDBM-2.05.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libm/libmldbm-perl/libmldbm-perl_2.05-2.debian.tar.xz
 Summary  : store multi-level Perl hash structure in single level tied hash
 Group    : Development/Tools
 License  : Artistic-1.0-Perl
-Requires: perl-MLDBM-man
+BuildRequires : buildreq-cpan
 
 %description
 be used to store multidimensional hash structures in tied hashes
 (including DBM files).
 
-%package man
-Summary: man components for the perl-MLDBM package.
-Group: Default
+%package dev
+Summary: dev components for the perl-MLDBM package.
+Group: Development
+Provides: perl-MLDBM-devel = %{version}-%{release}
 
-%description man
-man components for the perl-MLDBM package.
+%description dev
+dev components for the perl-MLDBM package.
 
 
 %prep
-tar -xf %{SOURCE1}
-cd ..
 %setup -q -n MLDBM-2.05
-mkdir -p %{_topdir}/BUILD/MLDBM-2.05/deblicense/
+cd ..
+%setup -q -T -D -n MLDBM-2.05 -b 1
+mkdir -p deblicense/
 mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/MLDBM-2.05/deblicense/
 
 %build
@@ -55,9 +56,9 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 if test -f Makefile.PL; then
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
+make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
-./Build install --installdirs=site --destdir=%{buildroot}
+./Build install --installdirs=vendor --destdir=%{buildroot}
 fi
 find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
 find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null ';'
@@ -66,11 +67,11 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/site_perl/5.26.1/MLDBM.pm
-/usr/lib/perl5/site_perl/5.26.1/MLDBM/Serializer/Data/Dumper.pm
-/usr/lib/perl5/site_perl/5.26.1/MLDBM/Serializer/FreezeThaw.pm
-/usr/lib/perl5/site_perl/5.26.1/MLDBM/Serializer/Storable.pm
+/usr/lib/perl5/vendor_perl/5.26.1/MLDBM.pm
+/usr/lib/perl5/vendor_perl/5.26.1/MLDBM/Serializer/Data/Dumper.pm
+/usr/lib/perl5/vendor_perl/5.26.1/MLDBM/Serializer/FreezeThaw.pm
+/usr/lib/perl5/vendor_perl/5.26.1/MLDBM/Serializer/Storable.pm
 
-%files man
+%files dev
 %defattr(-,root,root,-)
 /usr/share/man/man3/MLDBM.3
