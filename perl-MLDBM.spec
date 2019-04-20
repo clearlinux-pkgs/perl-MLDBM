@@ -67,10 +67,10 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.1/MLDBM.pm
-/usr/lib/perl5/vendor_perl/5.28.1/MLDBM/Serializer/Data/Dumper.pm
-/usr/lib/perl5/vendor_perl/5.28.1/MLDBM/Serializer/FreezeThaw.pm
-/usr/lib/perl5/vendor_perl/5.28.1/MLDBM/Serializer/Storable.pm
+/usr/lib/perl5/vendor_perl/5.28.2/MLDBM.pm
+/usr/lib/perl5/vendor_perl/5.28.2/MLDBM/Serializer/Data/Dumper.pm
+/usr/lib/perl5/vendor_perl/5.28.2/MLDBM/Serializer/FreezeThaw.pm
+/usr/lib/perl5/vendor_perl/5.28.2/MLDBM/Serializer/Storable.pm
 
 %files dev
 %defattr(-,root,root,-)
