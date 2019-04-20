@@ -4,13 +4,14 @@
 #
 Name     : perl-MLDBM
 Version  : 2.05
-Release  : 10
+Release  : 11
 URL      : https://cpan.metacpan.org/authors/id/C/CH/CHORNY/MLDBM-2.05.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/C/CH/CHORNY/MLDBM-2.05.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libm/libmldbm-perl/libmldbm-perl_2.05-2.debian.tar.xz
 Summary  : store multi-level Perl hash structure in single level tied hash
 Group    : Development/Tools
-License  : Artistic-1.0-Perl
+License  : Artistic-1.0 Artistic-1.0-Perl GPL-1.0
+Requires: perl-MLDBM-license = %{version}-%{release}
 BuildRequires : buildreq-cpan
 
 %description
@@ -21,9 +22,18 @@ be used to store multidimensional hash structures in tied hashes
 Summary: dev components for the perl-MLDBM package.
 Group: Development
 Provides: perl-MLDBM-devel = %{version}-%{release}
+Requires: perl-MLDBM = %{version}-%{release}
 
 %description dev
 dev components for the perl-MLDBM package.
+
+
+%package license
+Summary: license components for the perl-MLDBM package.
+Group: Default
+
+%description license
+license components for the perl-MLDBM package.
 
 
 %prep
@@ -31,7 +41,7 @@ dev components for the perl-MLDBM package.
 cd ..
 %setup -q -T -D -n MLDBM-2.05 -b 1
 mkdir -p deblicense/
-mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/MLDBM-2.05/deblicense/
+cp -r %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/MLDBM-2.05/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
@@ -55,6 +65,8 @@ make TEST_VERBOSE=1 test
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/perl-MLDBM
+cp deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-MLDBM/deblicense_copyright
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -75,3 +87,7 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 %files dev
 %defattr(-,root,root,-)
 /usr/share/man/man3/MLDBM.3
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/perl-MLDBM/deblicense_copyright
