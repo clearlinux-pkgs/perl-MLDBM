@@ -4,7 +4,7 @@
 #
 Name     : perl-MLDBM
 Version  : 2.05
-Release  : 11
+Release  : 12
 URL      : https://cpan.metacpan.org/authors/id/C/CH/CHORNY/MLDBM-2.05.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/C/CH/CHORNY/MLDBM-2.05.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libm/libmldbm-perl/libmldbm-perl_2.05-2.debian.tar.xz
@@ -12,6 +12,7 @@ Summary  : store multi-level Perl hash structure in single level tied hash
 Group    : Development/Tools
 License  : Artistic-1.0 Artistic-1.0-Perl GPL-1.0
 Requires: perl-MLDBM-license = %{version}-%{release}
+Requires: perl-MLDBM-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 
 %description
@@ -36,18 +37,28 @@ Group: Default
 license components for the perl-MLDBM package.
 
 
+%package perl
+Summary: perl components for the perl-MLDBM package.
+Group: Default
+Requires: perl-MLDBM = %{version}-%{release}
+
+%description perl
+perl components for the perl-MLDBM package.
+
+
 %prep
 %setup -q -n MLDBM-2.05
-cd ..
-%setup -q -T -D -n MLDBM-2.05 -b 1
+cd %{_builddir}
+tar xf %{_sourcedir}/libmldbm-perl_2.05-2.debian.tar.xz
+cd %{_builddir}/MLDBM-2.05
 mkdir -p deblicense/
-cp -r %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/MLDBM-2.05/deblicense/
+cp -r %{_builddir}/debian/* %{_builddir}/MLDBM-2.05/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
+export LANG=C.UTF-8
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make  %{?_smp_mflags}
@@ -57,7 +68,7 @@ else
 fi
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -66,7 +77,7 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-MLDBM
-cp deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-MLDBM/deblicense_copyright
+cp %{_builddir}/MLDBM-2.05/deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-MLDBM/0818edd921e5984915ebffd633848e732071f2e7
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -79,10 +90,6 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/MLDBM.pm
-/usr/lib/perl5/vendor_perl/5.28.2/MLDBM/Serializer/Data/Dumper.pm
-/usr/lib/perl5/vendor_perl/5.28.2/MLDBM/Serializer/FreezeThaw.pm
-/usr/lib/perl5/vendor_perl/5.28.2/MLDBM/Serializer/Storable.pm
 
 %files dev
 %defattr(-,root,root,-)
@@ -90,4 +97,11 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/perl-MLDBM/deblicense_copyright
+/usr/share/package-licenses/perl-MLDBM/0818edd921e5984915ebffd633848e732071f2e7
+
+%files perl
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.30.1/MLDBM.pm
+/usr/lib/perl5/vendor_perl/5.30.1/MLDBM/Serializer/Data/Dumper.pm
+/usr/lib/perl5/vendor_perl/5.30.1/MLDBM/Serializer/FreezeThaw.pm
+/usr/lib/perl5/vendor_perl/5.30.1/MLDBM/Serializer/Storable.pm
