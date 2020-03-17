@@ -4,7 +4,7 @@
 #
 Name     : perl-MLDBM
 Version  : 2.05
-Release  : 12
+Release  : 13
 URL      : https://cpan.metacpan.org/authors/id/C/CH/CHORNY/MLDBM-2.05.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/C/CH/CHORNY/MLDBM-2.05.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libm/libmldbm-perl/libmldbm-perl_2.05-2.debian.tar.xz
@@ -77,7 +77,7 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-MLDBM
-cp %{_builddir}/MLDBM-2.05/deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-MLDBM/0818edd921e5984915ebffd633848e732071f2e7
+cp %{_builddir}/debian/copyright %{buildroot}/usr/share/package-licenses/perl-MLDBM/0818edd921e5984915ebffd633848e732071f2e7
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -101,7 +101,7 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.30.1/MLDBM.pm
-/usr/lib/perl5/vendor_perl/5.30.1/MLDBM/Serializer/Data/Dumper.pm
-/usr/lib/perl5/vendor_perl/5.30.1/MLDBM/Serializer/FreezeThaw.pm
-/usr/lib/perl5/vendor_perl/5.30.1/MLDBM/Serializer/Storable.pm
+/usr/lib/perl5/vendor_perl/5.30.2/MLDBM.pm
+/usr/lib/perl5/vendor_perl/5.30.2/MLDBM/Serializer/Data/Dumper.pm
+/usr/lib/perl5/vendor_perl/5.30.2/MLDBM/Serializer/FreezeThaw.pm
+/usr/lib/perl5/vendor_perl/5.30.2/MLDBM/Serializer/Storable.pm
