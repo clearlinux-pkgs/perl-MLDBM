@@ -4,7 +4,7 @@
 #
 Name     : perl-MLDBM
 Version  : 2.05
-Release  : 14
+Release  : 15
 URL      : https://cpan.metacpan.org/authors/id/C/CH/CHORNY/MLDBM-2.05.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/C/CH/CHORNY/MLDBM-2.05.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libm/libmldbm-perl/libmldbm-perl_2.05-2.debian.tar.xz
@@ -101,7 +101,7 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.30.3/MLDBM.pm
-/usr/lib/perl5/vendor_perl/5.30.3/MLDBM/Serializer/Data/Dumper.pm
-/usr/lib/perl5/vendor_perl/5.30.3/MLDBM/Serializer/FreezeThaw.pm
-/usr/lib/perl5/vendor_perl/5.30.3/MLDBM/Serializer/Storable.pm
+/usr/lib/perl5/vendor_perl/5.32.1/MLDBM.pm
+/usr/lib/perl5/vendor_perl/5.32.1/MLDBM/Serializer/Data/Dumper.pm
+/usr/lib/perl5/vendor_perl/5.32.1/MLDBM/Serializer/FreezeThaw.pm
+/usr/lib/perl5/vendor_perl/5.32.1/MLDBM/Serializer/Storable.pm
