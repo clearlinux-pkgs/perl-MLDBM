@@ -4,7 +4,7 @@
 #
 Name     : perl-MLDBM
 Version  : 2.05
-Release  : 22
+Release  : 23
 URL      : https://cpan.metacpan.org/authors/id/C/CH/CHORNY/MLDBM-2.05.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/C/CH/CHORNY/MLDBM-2.05.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libm/libmldbm-perl/libmldbm-perl_2.05-2.debian.tar.xz
